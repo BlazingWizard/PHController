@@ -1,0 +1,25 @@
+{
+    "deploy.reloaded": {
+        "targets": [
+            {
+                "type": "local",
+                "name": "local",
+                "dir": "./build/PHController",
+                "mappings": {
+                    "menu/**": "/"
+                }
+            }
+        ],
+
+        "packages": [
+            {
+                "name": "all",
+                "files": [
+                    "menu/*",
+                    "PHController.ino"
+                ],
+                "targets": ["local"]
+            }
+        ]
+    }
+}
