@@ -9,18 +9,25 @@ Encoder enc1(2, 3, 4, TYPE2);
 
 Menu *menu = new Menu();
 
+void onShowMain(){
+  lcd.clear();
+  lcd.printstr("Main Screen");
+}
+
+void onShowSettings(){
+  lcd.clear();
+  lcd.printstr("Settings");
+}
+
 void setup() {
   Serial.begin(38400);
   lcd.init();
   lcd.backlight();
-
-  menu->add(new MenuElement("Main Screen"));
-  menu->add(new MenuElement("Settings"));
-  menu->add(new MenuElement("Callibration"));
-  menu->add(new MenuElement("Test"));
-
-  char* title = menu->getCurrentTitle();
-  lcd.printstr(title);
+  
+  MenuElement *ms = new MenuElement(onShowMain);
+  MenuElement *s = new MenuElement(onShowSettings);
+  menu->add(ms);
+  menu->add(s);
 }
 
 void loop() {
@@ -34,10 +41,5 @@ void loop() {
     menu->previos();
   }
 
-  if (menu->currentIsChanged(true)) {
-    Serial.println("change");
-    lcd.clear();
-    char* title = menu->getCurrentTitle();
-    lcd.printstr(title);
-  }
+  menu->callOnShowAction();
 }

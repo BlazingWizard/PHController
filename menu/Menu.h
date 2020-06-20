@@ -9,6 +9,8 @@ private:
     MenuElement *last;
     
     bool isChanged;
+
+    bool currentIsChanged(bool returnToDefault);
 public:
     Menu();
     
@@ -19,10 +21,8 @@ public:
     void previos();
     
     void add(MenuElement *newElement);
-    
-    bool currentIsChanged(bool returnToDefault);
 
     MenuElement* getCurrent();
 
-    char* getCurrentTitle();
+    void callOnShowAction();
 };

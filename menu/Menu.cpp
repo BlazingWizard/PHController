@@ -39,6 +39,7 @@ void Menu::add(MenuElement *newElement){
     if (this->last == NULL){
         this->last = newElement;
         this->current = newElement;
+        this->isChanged = true;
         return;
     }
 
@@ -59,6 +60,17 @@ MenuElement* Menu::getCurrent() {
     return this->current;
 }
 
-char* Menu::getCurrentTitle() {
-    return this->current->getTitle();
+void Menu::callOnShowAction(){
+    MenuElement *curr = this->getCurrent();
+    if (curr == NULL){
+        return;
+    }
+
+    if (!this->currentIsChanged(true)){
+        return;
+    }
+
+    if (curr->onShow != NULL){
+        curr->onShow();
+    }
 }

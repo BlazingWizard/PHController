@@ -21,5 +21,10 @@
                 "targets": ["local"]
             }
         ]
+    },
+
+    "files.exclude": {
+        "build/": true
     }
+
 }
