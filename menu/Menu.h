@@ -1,5 +1,9 @@
+#ifndef MENU_ELEMEN_H_INCLUDED
+#define MENU_ELEMEN_H_INCLUDED
+
 #include "MenuElemen.h"
-#include <Arduino.h>
+
+class MenuElement;
 
 class Menu
 {
@@ -9,6 +13,8 @@ private:
     MenuElement *last;
     
     bool isChanged;
+
+    bool nowInSubMenu;
 
     bool currentIsChanged(bool returnToDefault);
 public:
@@ -25,4 +31,8 @@ public:
     MenuElement* getCurrent();
 
     void callOnShowAction();
+
+    void callOnClickAction();
 };
+
+#endif 

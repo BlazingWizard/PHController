@@ -5,6 +5,7 @@ Menu::Menu(){
     this->current = NULL;
     this->isChanged = false;
     this->last = NULL;
+    this->nowInSubMenu = false;
 }
 
 Menu::~Menu(){
@@ -12,6 +13,11 @@ Menu::~Menu(){
 }
 
 void Menu::next(){
+    if (this->nowInSubMenu) {
+        this->current->subMenu->next();
+        return;
+    }
+
     if (this->current == NULL){
         return;
     }
@@ -24,6 +30,11 @@ void Menu::next(){
 }
 
 void Menu::previos(){
+    if (this->nowInSubMenu) {
+        this->current->subMenu->previos();
+        return;
+    }
+
     if (this->current == NULL){
         return;
     }
@@ -49,6 +60,10 @@ void Menu::add(MenuElement *newElement){
 }
 
 bool Menu::currentIsChanged(bool returnToDefault){
+    if (this->nowInSubMenu){
+        return this->current->subMenu->currentIsChanged(returnToDefault);
+    }
+
     bool currVal = this->isChanged;
     if (returnToDefault){
         this->isChanged = false;
@@ -57,6 +72,13 @@ bool Menu::currentIsChanged(bool returnToDefault){
 }
 
 MenuElement* Menu::getCurrent() {
+    if ( this->nowInSubMenu){
+        Menu* subMenu = this->current->subMenu;
+        if (subMenu != NULL){
+            return subMenu->getCurrent();
+        }
+        return NULL;
+    }
     return this->current;
 }
 
@@ -72,5 +94,24 @@ void Menu::callOnShowAction(){
 
     if (curr->onShow != NULL){
         curr->onShow();
+    }
+}
+
+// Войти в подменю если у текущего элемента оно есть, если нет, то вызвать onClick
+void Menu::callOnClickAction(){
+    MenuElement *curr = this->getCurrent();
+    if (curr == NULL){
+        return;
+    }
+
+    if (curr->onClick != NULL){
+        curr->onClick();
+        return;
+    }
+
+    if (this->current->subMenu != NULL){
+        this->nowInSubMenu = !this->nowInSubMenu;
+        this->isChanged = true;
+        this->current->subMenu->isChanged = true;
     }
 }
