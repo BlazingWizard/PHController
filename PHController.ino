@@ -6,33 +6,7 @@
 
 LiquidCrystal_I2C lcd(0x3F, 20, 4);
 Encoder enc1(2, 3, 4, TYPE2);
-
 Menu *menu = new Menu();
-
-void onShowMain(){
-  lcd.clear();
-  lcd.printstr("Main Screen");
-}
-
-void onShowSettings(){
-  lcd.clear();
-  lcd.printstr("Settings");
-}
-
-void test1(){
-  lcd.clear();
-  lcd.printstr("test1");
-}
-
-void test2(){
-  lcd.clear();
-  lcd.printstr("test2");
-}
-
-void test3(){
-  lcd.clear();
-  lcd.printstr("test3");
-}
 
 void setup() {
   Serial.begin(38400);
@@ -67,4 +41,30 @@ void loop() {
   }
 
   menu->callOnShowAction();
+}
+
+
+void onShowMain(){
+  lcd.clear();
+  lcd.printstr("Main Screen");
+}
+
+void onShowSettings(){
+  lcd.clear();
+  lcd.printstr("Settings");
+}
+
+void test1(){
+  lcd.clear();
+  lcd.printstr("test1");
+}
+
+void test2(){
+  lcd.clear();
+  lcd.printstr("test2");
+}
+
+void test3(){
+  lcd.clear();
+  lcd.printstr("test3");
 }
