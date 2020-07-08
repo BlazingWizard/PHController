@@ -3,15 +3,21 @@
 #include <GyverEncoder.h>
 
 #include "Menu.h"
+#include "Settings.h"
 
 LiquidCrystal_I2C lcd(0x3F, 20, 4);
 Encoder enc1(2, 3, 4, TYPE2);
+
 Menu *menu = NULL;
+Settings *settings = NULL;
+char* settingsStr = new char[20];
 
 void setup() {
   Serial.begin(38400);
   lcd.init();
   lcd.backlight();
+
+  settings = new Settings();
   menu = createMenu();
 }
 
@@ -28,6 +34,14 @@ void loop() {
 
   if (enc1.isClick()){
      menu->callOnClickAction();
+  }
+
+  if (enc1.isRightH()){
+    menu->callOnHoldRightAction();
+  }
+
+  if (enc1.isLeftH()){
+    menu->callOnHoldLeftAction();
   }
 
   menu->callOnShowAction();
@@ -59,7 +73,26 @@ void onShowTestPump(){
 void onShowSetMode(){
   lcd.clear();
   lcd.printstr("Mode");
+
+  lcd.setCursor (0,1);
+  settings->mode->getDisplayValue(settingsStr);
+  lcd.printstr(settingsStr);
 }
+
+void onHoldRightMode(){
+  int mode = settings->mode->getValue();
+  mode++;
+  settings->mode->setValue(mode);
+  onShowSetMode();
+}
+
+void onHoldLeftMode(){
+  int mode = settings->mode->getValue();
+  mode--;
+  settings->mode->setValue(mode);
+  onShowSetMode();
+}
+
 
 void onShowSetPhLow(){
   lcd.clear();
@@ -140,7 +173,7 @@ Menu* createMenu(){
 
   // Create settings submenu
   Menu* settingsSubmenu = settings->subMenu;
-  settingsSubmenu->add(new MenuElement(onShowSetMode));
+  settingsSubmenu->add(new MenuElement(onShowSetMode, onHoldRightMode, onHoldLeftMode));
   settingsSubmenu->add(new MenuElement(onShowSetPhLow));
   settingsSubmenu->add(new MenuElement(onShowSetPhHigh));
   settingsSubmenu->add(new MenuElement(onShowSetSmallAdjust));

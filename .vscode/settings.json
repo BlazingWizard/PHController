@@ -6,7 +6,8 @@
                 "name": "local",
                 "dir": "./build/PHController",
                 "mappings": {
-                    "menu/**": "/"
+                    "settings/**": "/", 
+                    "menu/**": "/"                    
                 }
             }
         ],
@@ -16,6 +17,7 @@
                 "name": "all",
                 "files": [
                     "menu/*",
+                    "settings/*",
                     "PHController.ino"
                 ],
                 "targets": ["local"]
