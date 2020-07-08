@@ -2,15 +2,15 @@
 #include <Arduino.h>
 
 MenuElement::MenuElement(void (*onShowAction)()){
-    fillMenuElement(onShowAction, NULL, NULL, NULL);
+    this->fillMenuElement(onShowAction, NULL, NULL, NULL);
 }
 
 MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)()){
-    fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, NULL);
+    this->fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, NULL);
 }
 
 MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)()){
-    fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, onClickAction);
+    this->fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, onClickAction);
 }
 
 MenuElement::~MenuElement(){
