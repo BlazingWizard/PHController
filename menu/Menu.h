@@ -33,6 +33,10 @@ public:
     void callOnShowAction();
 
     void callOnClickAction();
+
+    void callOnHoldRightAction();
+
+    void callOnHoldLeftAction();
 };
 
 #endif 

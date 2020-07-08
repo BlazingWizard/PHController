@@ -115,3 +115,27 @@ void Menu::callOnClickAction(){
         this->current->subMenu->isChanged = true;
     }
 }
+
+void Menu::callOnHoldRightAction(){
+    MenuElement *curr = this->getCurrent();
+    if (curr == NULL){
+        return;
+    }
+
+    if (curr->onHoldRight != NULL){
+        curr->onHoldRight();
+        return;
+    }
+}
+
+void Menu::callOnHoldLeftAction(){
+    MenuElement *curr = this->getCurrent();
+    if (curr == NULL){
+        return;
+    }
+
+    if (curr->onHoldLeft != NULL){
+        curr->onHoldLeft();
+        return;
+    }
+}
