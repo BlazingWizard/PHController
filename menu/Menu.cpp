@@ -97,7 +97,6 @@ void Menu::callOnShowAction(){
     }
 }
 
-// Войти в подменю если у текущего элемента оно есть, если нет, то вызвать onClick
 void Menu::callOnClickAction(){
     MenuElement *curr = this->getCurrent();
     if (curr == NULL){
@@ -109,6 +108,7 @@ void Menu::callOnClickAction(){
         return;
     }
 
+    // if not have onClick enter or exit in submenu
     if (this->current->subMenu != NULL){
         this->nowInSubMenu = !this->nowInSubMenu;
         this->isChanged = true;
