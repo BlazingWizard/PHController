@@ -12,9 +12,10 @@ Encoder enc1(2, 3, 4, TYPE2);
 
 Menu *menu = NULL;
 Settings *settings = NULL;
-char* settingsStr = new char[SCREEN_WIDTH];
+char *settingsStr = new char[SCREEN_WIDTH];
 
-void setup() {
+void setup()
+{
   Serial.begin(38400);
   lcd.init();
   lcd.backlight();
@@ -23,26 +24,32 @@ void setup() {
   menu = createMenu();
 }
 
-void loop() {
+void loop()
+{
   enc1.tick();
 
-  if (enc1.isRight()) {
+  if (enc1.isRight())
+  {
     menu->next();
   }
 
-  if (enc1.isLeft()) {
+  if (enc1.isLeft())
+  {
     menu->previos();
   }
 
-  if (enc1.isClick()){
-     menu->callOnClickAction();
+  if (enc1.isClick())
+  {
+    menu->callOnClickAction();
   }
 
-  if (enc1.isRightH()){
+  if (enc1.isRightH())
+  {
     menu->callOnHoldRightAction();
   }
 
-  if (enc1.isLeftH()){
+  if (enc1.isLeftH())
+  {
     menu->callOnHoldLeftAction();
   }
 
@@ -50,22 +57,26 @@ void loop() {
 }
 
 #pragma region MainMenu
-void onShowMain(){
+void onShowMain()
+{
   lcd.clear();
   lcd.printstr("Main Screen");
 }
 
-void onShowSettings(){
+void onShowSettings()
+{
   lcd.clear();
   lcd.printstr("Settings");
 }
 
-void onShowPhCalibration() {
+void onShowPhCalibration()
+{
   lcd.clear();
   lcd.printstr("Ph Calibration");
 }
 
-void onShowTestPump(){
+void onShowTestPump()
+{
   lcd.clear();
   lcd.printstr("Test Pump");
 }
@@ -73,154 +84,176 @@ void onShowTestPump(){
 
 #pragma region SettingsSubmenu
 #pragma region Mode
-void onShowSetMode(){
+void onShowSetMode()
+{
   lcd.clear();
   lcd.printstr("Mode");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->mode->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightMode(){
+void onHoldRightMode()
+{
   settings->mode->inc();
   onShowSetMode();
 }
 
-void onHoldLeftMode(){
+void onHoldLeftMode()
+{
   settings->mode->dec();
   onShowSetMode();
 }
 #pragma endregion Mode
 
 #pragma region PhLow
-void onShowSetPhLow(){
+void onShowSetPhLow()
+{
   lcd.clear();
   lcd.printstr("PhLow");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->phLow->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightPhLow(){
+void onHoldRightPhLow()
+{
   settings->phLow->inc();
   onShowSetPhLow();
 }
 
-void onHoldLeftPhLow(){
+void onHoldLeftPhLow()
+{
   settings->phLow->dec();
   onShowSetPhLow();
 }
 #pragma endregion PhLow
 
 #pragma region PhHigh
-void onShowSetPhHigh(){
+void onShowSetPhHigh()
+{
   lcd.clear();
   lcd.printstr("PhHigh");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->phHigh->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightPhHigh(){
+void onHoldRightPhHigh()
+{
   settings->phHigh->inc();
   onShowSetPhHigh();
 }
 
-void onHoldLeftPhHigh(){
+void onHoldLeftPhHigh()
+{
   settings->phHigh->dec();
   onShowSetPhHigh();
 }
 #pragma endregion PhHigh
 
 #pragma region SmallAdjust
-void onShowSetSmallAdjust(){
+void onShowSetSmallAdjust()
+{
   lcd.clear();
   lcd.printstr("Small Adjust");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->smallAdjust->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightSmallAdjust(){
+void onHoldRightSmallAdjust()
+{
   settings->smallAdjust->inc();
   onShowSetSmallAdjust();
 }
 
-void onHoldLeftSmallAdjust(){
+void onHoldLeftSmallAdjust()
+{
   settings->smallAdjust->dec();
   onShowSetSmallAdjust();
 }
 #pragma endregion SmallAdjust
 
 #pragma region LargeAdjust
-void onShowSetLargeAdjust(){
+void onShowSetLargeAdjust()
+{
   lcd.clear();
   lcd.printstr("Large Adjust");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->largeAdjust->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightLargeAdjust(){
+void onHoldRightLargeAdjust()
+{
   settings->largeAdjust->inc();
   onShowSetLargeAdjust();
 }
 
-void onHoldLeftLargeAdjust(){
+void onHoldLeftLargeAdjust()
+{
   settings->largeAdjust->dec();
   onShowSetLargeAdjust();
 }
 #pragma endregion LargeAdjust
 
 #pragma region Delay
-void onShowSetDelay(){
+void onShowSetDelay()
+{
   lcd.clear();
   lcd.printstr("Delay");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->delay->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightDelay(){
+void onHoldRightDelay()
+{
   settings->delay->inc();
   onShowSetDelay();
 }
 
-void onHoldLeftDelay(){
+void onHoldLeftDelay()
+{
   settings->delay->dec();
   onShowSetDelay();
 }
 #pragma endregion Delay
 
 #pragma region LED
-void onShowSetLED(){
+void onShowSetLED()
+{
   lcd.clear();
   lcd.printstr("LED");
 
-  lcd.setCursor (0,1);
+  lcd.setCursor(0, 1);
   settings->LED->getDisplayValue(settingsStr);
   lcd.printstr(settingsStr);
 }
 
-void onHoldRightLED(){
+void onHoldRightLED()
+{
   settings->LED->inc();
   onShowSetLED();
 }
 
-void onHoldLeftLED(){
+void onHoldLeftLED()
+{
   settings->LED->dec();
   onShowSetLED();
 }
 #pragma endregion LED
 
 #pragma region ResetAll
-void onShowResetAll(){
+void onShowResetAll()
+{
   lcd.clear();
   lcd.printstr("Reset All");
 }
@@ -228,37 +261,43 @@ void onShowResetAll(){
 #pragma endregion SettingsSubmenu
 
 #pragma region PhCalibrationSubmenu
-void onShowCalibratePh4(){
+void onShowCalibratePh4()
+{
   lcd.clear();
   lcd.printstr("Calibrate Ph4");
 }
 
-void onShowCalibratePh7(){
+void onShowCalibratePh7()
+{
   lcd.clear();
   lcd.printstr("Calibrate Ph7");
 }
 
-void onShowCalibratePh10(){
+void onShowCalibratePh10()
+{
   lcd.clear();
   lcd.printstr("Calibrate Ph10");
 }
 #pragma endregion PhCalibrationSubmenu
 
 #pragma region TestPumpSubmenu
-void onShowPump1(){
+void onShowPump1()
+{
   lcd.clear();
   lcd.printstr("Pump1");
 }
 
-void onShowPump2(){
+void onShowPump2()
+{
   lcd.clear();
   lcd.printstr("Pump2");
 }
 #pragma endregion TestPumpSubmenu
 
-Menu* createMenu(){
-  Menu* mainMenu = new Menu();
-  
+Menu *createMenu()
+{
+  Menu *mainMenu = new Menu();
+
   // Create elemnts main menu
   MenuElement *mainScreen = new MenuElement(onShowMain);
   MenuElement *settings = new MenuElement(onShowSettings);
@@ -269,7 +308,7 @@ Menu* createMenu(){
   testPump->subMenu = new Menu();
 
   // Create settings submenu
-  Menu* settingsSubmenu = settings->subMenu;
+  Menu *settingsSubmenu = settings->subMenu;
   settingsSubmenu->add(new MenuElement(onShowSetMode, onHoldRightMode, onHoldLeftMode));
   settingsSubmenu->add(new MenuElement(onShowSetPhLow, onHoldRightPhLow, onHoldLeftPhLow));
   settingsSubmenu->add(new MenuElement(onShowSetPhHigh, onHoldRightPhHigh, onHoldLeftPhHigh));
@@ -280,13 +319,13 @@ Menu* createMenu(){
   settingsSubmenu->add(new MenuElement(onShowResetAll));
 
   // Create phCalibration submenu
-  Menu* phCalibrationSubmenu = phCalibration->subMenu;
+  Menu *phCalibrationSubmenu = phCalibration->subMenu;
   phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh4));
   phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh7));
   phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh10));
 
   // Create testPump submenu
-  Menu* testPumpSubmenu = testPump->subMenu;
+  Menu *testPumpSubmenu = testPump->subMenu;
   testPumpSubmenu->add(new MenuElement(onShowPump1));
   testPumpSubmenu->add(new MenuElement(onShowPump2));
 

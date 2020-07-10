@@ -1,46 +1,54 @@
 #include "IntSettingsField.h"
 #include <Arduino.h>
 
-IntSettingsField::IntSettingsField(int defaultValue){
+IntSettingsField::IntSettingsField(int defaultValue)
+{
     this->fillSettingsField(defaultValue, 0, 0);
 }
 
-IntSettingsField::IntSettingsField(int defaultValue, int minValue, int maxValue){
+IntSettingsField::IntSettingsField(int defaultValue, int minValue, int maxValue)
+{
     this->fillSettingsField(defaultValue, minValue, maxValue);
 }
 
-void IntSettingsField::fillSettingsField(int defaultValue, int minValue, int maxValue){
+void IntSettingsField::fillSettingsField(int defaultValue, int minValue, int maxValue)
+{
     this->minValue = minValue;
     this->maxValue = maxValue;
-    
-    this->setValue(defaultValue); 
+
+    this->setValue(defaultValue);
 }
 
-IntSettingsField::~IntSettingsField(){
-
+IntSettingsField::~IntSettingsField()
+{
 }
 
-void IntSettingsField::setValue(int value){
+void IntSettingsField::setValue(int value)
+{
     this->setValue(value, NULL);
 }
 
-void IntSettingsField::setValue(int value, char *displayValue){
+void IntSettingsField::setValue(int value, char *displayValue)
+{
     this->displayValue = displayValue;
-    
+
     // if not need check bound set received value
-    if (!this->needCheckBounds()){
+    if (!this->needCheckBounds())
+    {
         this->value = value;
         return;
     }
 
     // if received value to large, set max
-    if (value > this->maxValue){
+    if (value > this->maxValue)
+    {
         this->value = this->maxValue;
         return;
     }
-    
+
     // if received value to small, set min
-    if (value < this->minValue){
+    if (value < this->minValue)
+    {
         this->value = this->minValue;
         return;
     }
@@ -49,25 +57,30 @@ void IntSettingsField::setValue(int value, char *displayValue){
     this->value = value;
 }
 
-int IntSettingsField::getValue(){
+int IntSettingsField::getValue()
+{
     return this->value;
 }
 
-void IntSettingsField::getDisplayValue(char* arr){
+void IntSettingsField::getDisplayValue(char *arr)
+{
     String str;
-    if (this->displayValue != NULL){
+    if (this->displayValue != NULL)
+    {
         str = String(this->displayValue);
-    } 
+    }
     else
     {
         str = String(this->getValue());
     }
- 
-    str.toCharArray(arr,10);
+
+    str.toCharArray(arr, 10);
 }
 
-void IntSettingsField::inc(){  
-    if(this->needCheckBounds() && this->value == this->maxValue){
+void IntSettingsField::inc()
+{
+    if (this->needCheckBounds() && this->value == this->maxValue)
+    {
         return;
     }
 
@@ -75,8 +88,10 @@ void IntSettingsField::inc(){
     return;
 }
 
-void IntSettingsField::dec(){
-    if(this->needCheckBounds() && this->value == this->minValue){
+void IntSettingsField::dec()
+{
+    if (this->needCheckBounds() && this->value == this->minValue)
+    {
         return;
     }
 
@@ -84,6 +99,7 @@ void IntSettingsField::dec(){
     return;
 }
 
-bool IntSettingsField::needCheckBounds(){
+bool IntSettingsField::needCheckBounds()
+{
     return this->minValue != 0 || this->maxValue != 0;
 }

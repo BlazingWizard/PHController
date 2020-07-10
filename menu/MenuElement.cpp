@@ -1,23 +1,27 @@
 #include "MenuElement.h"
 #include <Arduino.h>
 
-MenuElement::MenuElement(void (*onShowAction)()){
+MenuElement::MenuElement(void (*onShowAction)())
+{
     this->fillMenuElement(onShowAction, NULL, NULL, NULL);
 }
 
-MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)()){
+MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)())
+{
     this->fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, NULL);
 }
 
-MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)()){
+MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)())
+{
     this->fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, onClickAction);
 }
 
-MenuElement::~MenuElement(){
-
+MenuElement::~MenuElement()
+{
 }
 
-void MenuElement::fillMenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)()){
+void MenuElement::fillMenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)())
+{
     this->next = NULL;
     this->prev = NULL;
     this->subMenu = NULL;

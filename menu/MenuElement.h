@@ -9,12 +9,13 @@ class MenuElement
 {
 private:
     void fillMenuElement(void (*onShowAction)(), void (*onClickAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)());
+
 public:
     MenuElement *next;
     MenuElement *prev;
 
     Menu *subMenu;
-    
+
     void (*onShow)();
     void (*onClick)();
     void (*onHoldRight)();
@@ -23,7 +24,7 @@ public:
     MenuElement(void (*onShowAction)());
     MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)());
     MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)());
-    
+
     ~MenuElement();
 };
 

@@ -1,53 +1,64 @@
 #include "Menu.h"
 #include <Arduino.h>
 
-Menu::Menu(){
+Menu::Menu()
+{
     this->current = NULL;
     this->isChanged = false;
     this->last = NULL;
     this->nowInSubMenu = false;
 }
 
-Menu::~Menu(){
-
+Menu::~Menu()
+{
 }
 
-void Menu::next(){
-    if (this->nowInSubMenu) {
+void Menu::next()
+{
+    if (this->nowInSubMenu)
+    {
         this->current->subMenu->next();
         return;
     }
 
-    if (this->current == NULL){
+    if (this->current == NULL)
+    {
         return;
     }
 
     MenuElement *next = this->current->next;
-    if(next != NULL){
+    if (next != NULL)
+    {
         this->current = next;
         this->isChanged = true;
     }
 }
 
-void Menu::previos(){
-    if (this->nowInSubMenu) {
+void Menu::previos()
+{
+    if (this->nowInSubMenu)
+    {
         this->current->subMenu->previos();
         return;
     }
 
-    if (this->current == NULL){
+    if (this->current == NULL)
+    {
         return;
     }
 
     MenuElement *prev = this->current->prev;
-    if(prev != NULL){
+    if (prev != NULL)
+    {
         this->current = prev;
         this->isChanged = true;
     }
 }
 
-void Menu::add(MenuElement *newElement){
-    if (this->last == NULL){
+void Menu::add(MenuElement *newElement)
+{
+    if (this->last == NULL)
+    {
         this->last = newElement;
         this->current = newElement;
         this->isChanged = true;
@@ -59,22 +70,28 @@ void Menu::add(MenuElement *newElement){
     this->last = newElement;
 }
 
-bool Menu::currentIsChanged(bool returnToDefault){
-    if (this->nowInSubMenu){
+bool Menu::currentIsChanged(bool returnToDefault)
+{
+    if (this->nowInSubMenu)
+    {
         return this->current->subMenu->currentIsChanged(returnToDefault);
     }
 
     bool currVal = this->isChanged;
-    if (returnToDefault){
+    if (returnToDefault)
+    {
         this->isChanged = false;
     }
     return currVal;
 }
 
-MenuElement* Menu::getCurrent() {
-    if ( this->nowInSubMenu){
-        Menu* subMenu = this->current->subMenu;
-        if (subMenu != NULL){
+MenuElement* Menu::getCurrent()
+{
+    if (this->nowInSubMenu)
+    {
+        Menu *subMenu = this->current->subMenu;
+        if (subMenu != NULL)
+        {
             return subMenu->getCurrent();
         }
         return NULL;
@@ -82,59 +99,73 @@ MenuElement* Menu::getCurrent() {
     return this->current;
 }
 
-void Menu::callOnShowAction(){
+void Menu::callOnShowAction()
+{
     MenuElement *curr = this->getCurrent();
-    if (curr == NULL){
+    if (curr == NULL)
+    {
         return;
     }
 
-    if (!this->currentIsChanged(true)){
+    if (!this->currentIsChanged(true))
+    {
         return;
     }
 
-    if (curr->onShow != NULL){
+    if (curr->onShow != NULL)
+    {
         curr->onShow();
     }
 }
 
-void Menu::callOnClickAction(){
+void Menu::callOnClickAction()
+{
     MenuElement *curr = this->getCurrent();
-    if (curr == NULL){
+    if (curr == NULL)
+    {
         return;
     }
 
-    if (curr->onClick != NULL){
+    if (curr->onClick != NULL)
+    {
         curr->onClick();
         return;
     }
 
     // if not have onClick enter or exit in submenu
-    if (this->current->subMenu != NULL){
+    if (this->current->subMenu != NULL)
+    {
         this->nowInSubMenu = !this->nowInSubMenu;
         this->isChanged = true;
         this->current->subMenu->isChanged = true;
     }
 }
 
-void Menu::callOnHoldRightAction(){
+void Menu::callOnHoldRightAction()
+{
     MenuElement *curr = this->getCurrent();
-    if (curr == NULL){
+    if (curr == NULL)
+    {
         return;
     }
 
-    if (curr->onHoldRight != NULL){
+    if (curr->onHoldRight != NULL)
+    {
         curr->onHoldRight();
         return;
     }
 }
 
-void Menu::callOnHoldLeftAction(){
+void Menu::callOnHoldLeftAction()
+{
     MenuElement *curr = this->getCurrent();
-    if (curr == NULL){
+    if (curr == NULL)
+    {
         return;
     }
 
-    if (curr->onHoldLeft != NULL){
+    if (curr->onHoldLeft != NULL)
+    {
         curr->onHoldLeft();
         return;
     }
