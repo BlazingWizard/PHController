@@ -5,15 +5,14 @@ private:
     int maxValue;
     int minValue;
 
-    char *displayValue;
+    char **displayValues;
 
-    void fillSettingsField(int defaultValue, int minValue, int maxValue);
+    void fillSettingsField(int defaultValue, int minValue, int maxValue, char** displayValues);
 
     bool needCheckBounds();
 
 public:
     void setValue(int value);
-    void setValue(int value, char *displayValue);
 
     int getValue();
 
@@ -24,6 +23,7 @@ public:
 
     IntSettingsField(int defaultValue);
     IntSettingsField(int defaultValue, int minValue, int maxValue);
+    IntSettingsField(int defaultValue, int minValue, int maxValue, char** displayValues);
 
     ~IntSettingsField();
 };

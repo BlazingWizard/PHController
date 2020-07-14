@@ -14,13 +14,24 @@ Menu *menu = NULL;
 Settings *settings = NULL;
 char *settingsStr = new char[SCREEN_WIDTH];
 
+char *modes[] = {
+  "Auto",
+  "Manual"
+};
+
+char *led[] = {
+  "On",
+  "Off"
+};
+
+
 void setup()
 {
   Serial.begin(38400);
   lcd.init();
   lcd.backlight();
 
-  settings = new Settings();
+  settings = new Settings(modes,led);
   menu = createMenu();
 }
 

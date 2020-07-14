@@ -3,18 +3,24 @@
 
 IntSettingsField::IntSettingsField(int defaultValue)
 {
-    this->fillSettingsField(defaultValue, 0, 0);
+    this->fillSettingsField(defaultValue, 0, 0, NULL);
 }
 
 IntSettingsField::IntSettingsField(int defaultValue, int minValue, int maxValue)
 {
-    this->fillSettingsField(defaultValue, minValue, maxValue);
+    this->fillSettingsField(defaultValue, minValue, maxValue, NULL);
 }
 
-void IntSettingsField::fillSettingsField(int defaultValue, int minValue, int maxValue)
+IntSettingsField::IntSettingsField(int defaultValue, int minValue, int maxValue, char** displayValues)
+{
+    this->fillSettingsField(defaultValue, minValue, maxValue, displayValues);
+}
+
+void IntSettingsField::fillSettingsField(int defaultValue, int minValue, int maxValue, char** displayValues)
 {
     this->minValue = minValue;
     this->maxValue = maxValue;
+    this->displayValues = displayValues;
 
     this->setValue(defaultValue);
 }
@@ -25,13 +31,6 @@ IntSettingsField::~IntSettingsField()
 
 void IntSettingsField::setValue(int value)
 {
-    this->setValue(value, NULL);
-}
-
-void IntSettingsField::setValue(int value, char *displayValue)
-{
-    this->displayValue = displayValue;
-
     // if not need check bound set received value
     if (!this->needCheckBounds())
     {
@@ -65,13 +64,15 @@ int IntSettingsField::getValue()
 void IntSettingsField::getDisplayValue(char *arr)
 {
     String str;
-    if (this->displayValue != NULL)
+    int val = this->getValue();
+    if (this->displayValues != NULL)
     {
-        str = String(this->displayValue);
+        char** displayValues = this->displayValues;
+        str = String(displayValues[val]);
     }
     else
     {
-        str = String(this->getValue());
+        str = String(val);
     }
 
     str.toCharArray(arr, 10);

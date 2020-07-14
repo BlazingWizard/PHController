@@ -12,6 +12,6 @@ public:
     IntSettingsField *delay;
     IntSettingsField *LED;
 
-    Settings();
+    Settings(char** modeDisplayValues, char** ledDisplayValues);
     ~Settings();
 };
