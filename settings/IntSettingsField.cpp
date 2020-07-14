@@ -1,9 +1,12 @@
 #include "IntSettingsField.h"
 #include <Arduino.h>
 
+#define MAX_STR_LENGTH 20
+#define DEFAULT_VALUE 0
+
 IntSettingsField::IntSettingsField(int defaultValue)
 {
-    this->fillSettingsField(defaultValue, 0, 0, NULL);
+    this->fillSettingsField(defaultValue, DEFAULT_VALUE, DEFAULT_VALUE, NULL);
 }
 
 IntSettingsField::IntSettingsField(int defaultValue, int minValue, int maxValue)
@@ -75,7 +78,7 @@ void IntSettingsField::getDisplayValue(char *arr)
         str = String(val);
     }
 
-    str.toCharArray(arr, 10);
+    str.toCharArray(arr, MAX_STR_LENGTH);
 }
 
 void IntSettingsField::inc()
@@ -102,5 +105,5 @@ void IntSettingsField::dec()
 
 bool IntSettingsField::needCheckBounds()
 {
-    return this->minValue != 0 || this->maxValue != 0;
+    return this->minValue != DEFAULT_VALUE || this->maxValue != DEFAULT_VALUE;
 }

@@ -1,12 +1,13 @@
 #include "IntSettingsField.h"
+#include "DoubleSettingsField.h"
 
 class Settings
 {
 private:
 public:
     IntSettingsField *mode;
-    IntSettingsField *phLow;
-    IntSettingsField *phHigh;
+    DoubleSettingsField *phLow;
+    DoubleSettingsField *phHigh;
     IntSettingsField *smallAdjust;
     IntSettingsField *largeAdjust;
     IntSettingsField *delay;
