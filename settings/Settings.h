@@ -4,6 +4,14 @@
 class Settings
 {
 private:
+    int modeAdr;
+    int phLowAdr;
+    int phHighAdr;
+    int smallAdjustAdr;
+    int largeAdjustAdr;
+    int delayAdr;
+    int LEDAdr;
+
 public:
     IntSettingsField *mode;
     DoubleSettingsField *phLow;
@@ -13,6 +21,10 @@ public:
     IntSettingsField *delay;
     IntSettingsField *LED;
 
-    Settings(char** modeDisplayValues, char** ledDisplayValues);
+    void loadFromMemory();
+    void saveToMemory();
+    void returnToDefault();
+
+    Settings(char **modeDisplayValues, char **ledDisplayValues);
     ~Settings();
 };

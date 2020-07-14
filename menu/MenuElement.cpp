@@ -6,6 +6,11 @@ MenuElement::MenuElement(void (*onShowAction)())
     this->fillMenuElement(onShowAction, NULL, NULL, NULL);
 }
 
+MenuElement::MenuElement(void (*onShowAction)(), void (*onClickAction)())
+{
+    this->fillMenuElement(onShowAction, NULL, NULL, onClickAction);
+}
+
 MenuElement::MenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)())
 {
     this->fillMenuElement(onShowAction, onHoldRightAction, onHoldLeftAction, NULL);

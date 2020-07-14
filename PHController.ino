@@ -15,15 +15,14 @@ Settings *settings = NULL;
 char *settingsStr = new char[SCREEN_WIDTH];
 
 char *modes[] = {
-  "Auto",
-  "Manual"
+    "Auto",
+    "Manual"
 };
 
 char *led[] = {
-  "On",
-  "Off"
+    "On",
+    "Off"
 };
-
 
 void setup()
 {
@@ -31,7 +30,7 @@ void setup()
   lcd.init();
   lcd.backlight();
 
-  settings = new Settings(modes,led);
+  settings = new Settings(modes, led);
   menu = createMenu();
 }
 
@@ -262,11 +261,29 @@ void onHoldLeftLED()
 }
 #pragma endregion LED
 
+#pragma region SaveAll
+void onShowSaveAll()
+{
+  lcd.clear();
+  lcd.printstr("Save All");
+}
+
+void onClickSaveAll()
+{
+  settings->saveToMemory();
+}
+#pragma endregion SaveAll
+
 #pragma region ResetAll
 void onShowResetAll()
 {
   lcd.clear();
   lcd.printstr("Reset All");
+}
+
+void onClickResetAll()
+{
+  settings->returnToDefault();
 }
 #pragma endregion ResetAll
 #pragma endregion SettingsSubmenu
@@ -327,7 +344,8 @@ Menu *createMenu()
   settingsSubmenu->add(new MenuElement(onShowSetLargeAdjust, onHoldRightLargeAdjust, onHoldLeftLargeAdjust));
   settingsSubmenu->add(new MenuElement(onShowSetDelay, onHoldRightDelay, onHoldLeftDelay));
   settingsSubmenu->add(new MenuElement(onShowSetLED, onHoldRightLED, onHoldLeftLED));
-  settingsSubmenu->add(new MenuElement(onShowResetAll));
+  settingsSubmenu->add(new MenuElement(onShowSaveAll, onClickSaveAll));
+  settingsSubmenu->add(new MenuElement(onShowResetAll, onClickResetAll));
 
   // Create phCalibration submenu
   Menu *phCalibrationSubmenu = phCalibration->subMenu;
