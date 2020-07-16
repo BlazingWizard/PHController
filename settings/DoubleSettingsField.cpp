@@ -3,7 +3,7 @@
 
 #define CHANGE_DELTA 0.1
 #define MAX_STR_LENGTH 20
-#define DEFAULT_VALUE 0
+#define DEFAULT_VALUE 0.0
 
 DoubleSettingsField::DoubleSettingsField(double defaultValue)
 {
@@ -14,7 +14,6 @@ DoubleSettingsField::DoubleSettingsField(double defaultValue, double minValue, d
 {
     this->fillSettingsField(defaultValue, minValue, maxValue);
 }
-
 
 void DoubleSettingsField::fillSettingsField(double defaultValue, double minValue, double maxValue)
 {
@@ -70,7 +69,7 @@ void DoubleSettingsField::getDisplayValue(char *arr)
 
 void DoubleSettingsField::inc()
 {
-    if (this->needCheckBounds() && this->value == this->maxValue)
+    if (this->needCheckBounds() && this->equal(this->value, this->maxValue))
     {
         return;
     }
@@ -81,16 +80,24 @@ void DoubleSettingsField::inc()
 
 void DoubleSettingsField::dec()
 {
-    if (this->needCheckBounds() && this->value == this->minValue)
+    if (this->needCheckBounds() && this->equal(this->value, this->minValue))
     {
         return;
     }
 
-    this->value += CHANGE_DELTA;
+    this->value -= CHANGE_DELTA;
     return;
 }
 
 bool DoubleSettingsField::needCheckBounds()
 {
     return this->minValue != DEFAULT_VALUE || this->maxValue != DEFAULT_VALUE;
+}
+
+bool DoubleSettingsField::equal(double a, double b)
+{
+    double diff = a - b;
+    double abc = diff > 0 ? diff : -diff;
+
+    return abc < 0.001;
 }

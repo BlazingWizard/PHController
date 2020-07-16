@@ -8,6 +8,7 @@ private:
     void fillSettingsField(double defaultValue, double minValue, double maxValue);
 
     bool needCheckBounds();
+    bool equal(double a, double b);
 
 public:
     void setValue(double value);
