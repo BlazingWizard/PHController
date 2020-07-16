@@ -6,14 +6,14 @@
 
 Settings::Settings(char **modeDisplayValues, char **ledDisplayValues)
 {
-    // Calculate address in memory
+    // TODO find problem with sizeof(T)
     this->modeAdr = 0;
-    this->phLowAdr = this->modeAdr + sizeof(int);
-    this->phHighAdr = this->phLowAdr + sizeof(double);
-    this->smallAdjustAdr = this->phHighAdr + sizeof(double);
-    this->largeAdjustAdr = this->smallAdjustAdr + sizeof(int);
-    this->delayAdr = this->phHighAdr + sizeof(int);
-    this->LEDAdr = this->delayAdr + sizeof(int);
+    this->phLowAdr = 20;
+    this->phHighAdr = 40;
+    this->smallAdjustAdr = 60;
+    this->largeAdjustAdr = 80;
+    this->delayAdr = 100;
+    this->LEDAdr = 120;
 
     this->mode = new IntSettingsField(0, 0, 1, modeDisplayValues);
     this->phLow = new DoubleSettingsField(0, 0, 14);
