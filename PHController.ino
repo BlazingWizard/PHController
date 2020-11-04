@@ -6,13 +6,15 @@
 #include "Settings.h"
 
 #define SCREEN_WIDTH 20
+#define DEFAULT_PH 6.6
 
 LiquidCrystal_I2C lcd(0x3F, SCREEN_WIDTH, 4);
 Encoder enc1(2, 3, 4, TYPE2);
 
 Menu *menu = NULL;
 Settings *settings = NULL;
-char *settingsStr = new char[SCREEN_WIDTH];
+char *secondScreenStr = new char[SCREEN_WIDTH];
+char *thirdScreenStr = new char[SCREEN_WIDTH];
 
 char *modes[] = {
     "Auto",
@@ -23,6 +25,8 @@ char *led[] = {
     "On",
     "Off"
 };
+
+double currPH = DEFAULT_PH;
 
 void setup()
 {
@@ -69,8 +73,20 @@ void loop()
 #pragma region MainMenu
 void onShowMain()
 {
+  String currPHStr = String("Current PH:");
+  currPHStr += currPH;
+  currPHStr.toCharArray(secondScreenStr, SCREEN_WIDTH);
+
+  String phRange = String("Low:");
+  phRange += String(settings->phLow->getValue(), 2);
+  phRange += " High:";
+  phRange += String(settings->phHigh->getValue(), 2);
+  phRange.toCharArray(thirdScreenStr, SCREEN_WIDTH);
+
   lcd.clear();
-  lcd.printstr("Main Screen");
+  lcd.printstr(secondScreenStr);
+  lcd.setCursor(0, 2);
+  lcd.printstr(thirdScreenStr);
 }
 
 void onShowSettings()
@@ -100,8 +116,8 @@ void onShowSetMode()
   lcd.printstr("Mode");
 
   lcd.setCursor(0, 1);
-  settings->mode->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->mode->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightMode()
@@ -124,8 +140,8 @@ void onShowSetPhLow()
   lcd.printstr("PhLow");
 
   lcd.setCursor(0, 1);
-  settings->phLow->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->phLow->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightPhLow()
@@ -148,8 +164,8 @@ void onShowSetPhHigh()
   lcd.printstr("PhHigh");
 
   lcd.setCursor(0, 1);
-  settings->phHigh->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->phHigh->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightPhHigh()
@@ -172,8 +188,8 @@ void onShowSetSmallAdjust()
   lcd.printstr("Small Adjust");
 
   lcd.setCursor(0, 1);
-  settings->smallAdjust->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->smallAdjust->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightSmallAdjust()
@@ -196,8 +212,8 @@ void onShowSetLargeAdjust()
   lcd.printstr("Large Adjust");
 
   lcd.setCursor(0, 1);
-  settings->largeAdjust->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->largeAdjust->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightLargeAdjust()
@@ -220,8 +236,8 @@ void onShowSetDelay()
   lcd.printstr("Delay");
 
   lcd.setCursor(0, 1);
-  settings->delay->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->delay->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightDelay()
@@ -244,8 +260,8 @@ void onShowSetLED()
   lcd.printstr("LED");
 
   lcd.setCursor(0, 1);
-  settings->LED->getDisplayValue(settingsStr);
-  lcd.printstr(settingsStr);
+  settings->LED->getDisplayValue(secondScreenStr);
+  lcd.printstr(secondScreenStr);
 }
 
 void onHoldRightLED()
