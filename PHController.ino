@@ -4,6 +4,7 @@
 
 #include "Menu.h"
 #include "Settings.h"
+#include "Pump.h"
 
 #define SCREEN_WIDTH 20
 #define DEFAULT_PH 6.6
@@ -13,6 +14,9 @@ Encoder enc1(2, 3, 4, TYPE2);
 
 Menu *menu = NULL;
 Settings *settings = NULL;
+Pump *pumpRaisePH = NULL;
+Pump *pumpLowerPH = NULL;
+
 char *secondScreenStr = new char[SCREEN_WIDTH];
 char *thirdScreenStr = new char[SCREEN_WIDTH];
 
@@ -35,6 +39,8 @@ void setup()
   lcd.backlight();
 
   settings = new Settings(modes, led);
+  pumpLowerPH = new Pump(1);
+  pumpRaisePH = new Pump(2);
   menu = createMenu();
 }
 
