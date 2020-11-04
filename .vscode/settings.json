@@ -6,8 +6,10 @@
                 "name": "local",
                 "dir": "./build/PHController",
                 "mappings": {
-                    "settings/**": "/", 
-                    "menu/**": "/"                    
+                    
+                    "settings/**": "/",
+                    "devices/**": "/",
+                    "menu/**": "/",
                 }
             }
         ],
@@ -16,9 +18,10 @@
             {
                 "name": "all",
                 "files": [
-                    "menu/*",
                     "settings/*",
-                    "PHController.ino"
+                    "devices/*",
+                    "menu/*",
+                    "*.ino"
                 ],
                 "targets": ["local"]
             }
