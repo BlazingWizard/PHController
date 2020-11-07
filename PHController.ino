@@ -11,7 +11,7 @@
 #define DEFAULT_PH 6.6
 
 LiquidCrystal_I2C lcd(0x3F, SCREEN_WIDTH, 4);
-Encoder enc1(2, 3, 4, TYPE2);
+Encoder enc1(12, 11, 10, TYPE2);
 
 Pump pumpRaisePH(1);
 Pump pumpLowerPH(2);
@@ -34,6 +34,7 @@ char *led[] = {
 };
 
 float currPH = DEFAULT_PH;
+unsigned long int lastReadPH = millis();
 
 void setup()
 {
@@ -76,7 +77,10 @@ void loop()
 
   menu->callOnShowAction();
 
-  // Manage PH
-  currPH = pHSensor.read();
-  Serial.println(currPH);
+  // Read PH
+  unsigned long int currentMills = millis();
+  if (currentMills - lastReadPH > settings->delay->getValue() * 1000) {
+    lastReadPH = currentMills;
+    currPH = pHSensor.read();
+  }
 }
