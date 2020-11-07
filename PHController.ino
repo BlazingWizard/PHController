@@ -5,6 +5,7 @@
 #include "Menu.h"
 #include "Settings.h"
 #include "Pump.h"
+#include "PHSensor.h"
 
 #define SCREEN_WIDTH 20
 #define DEFAULT_PH 6.6
