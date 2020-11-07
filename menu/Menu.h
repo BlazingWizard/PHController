@@ -16,8 +16,11 @@ private:
 
     bool nowInSubMenu;
 
+    float lastScreenUpdate;
+
     bool currentIsChanged(bool returnToDefault);
 
+    bool needUpdateScreen();
 public:
     Menu();
 

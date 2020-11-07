@@ -1,6 +1,8 @@
 #include "Menu.h"
 #include <Arduino.h>
 
+#define UPDATE_SCREEN_PERIOD 5000
+
 Menu::Menu()
 {
     this->current = NULL;
@@ -85,7 +87,18 @@ bool Menu::currentIsChanged(bool returnToDefault)
     return currVal;
 }
 
-MenuElement* Menu::getCurrent()
+bool Menu::needUpdateScreen()
+{
+    if (!this->current->isUpdateble)
+    {
+        return false;
+    }
+
+    unsigned long currentMillis = millis();
+    return currentMillis - this->current->lastScreenUpdate > UPDATE_SCREEN_PERIOD;
+}
+
+MenuElement *Menu::getCurrent()
 {
     if (this->nowInSubMenu)
     {
@@ -107,13 +120,14 @@ void Menu::callOnShowAction()
         return;
     }
 
-    if (!this->currentIsChanged(true))
+    if (!this->currentIsChanged(true) && !this->needUpdateScreen())
     {
         return;
     }
 
     if (curr->onShow != NULL)
     {
+        curr->lastScreenUpdate = millis();
         curr->onShow();
     }
 }

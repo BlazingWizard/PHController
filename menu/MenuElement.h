@@ -11,6 +11,9 @@ private:
     void fillMenuElement(void (*onShowAction)(), void (*onHoldRightAction)(), void (*onHoldLeftAction)(), void (*onClickAction)());
 
 public:
+    bool isUpdateble;
+    unsigned long lastScreenUpdate;
+
     MenuElement *next;
     MenuElement *prev;
 

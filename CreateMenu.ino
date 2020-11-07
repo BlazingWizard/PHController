@@ -272,6 +272,8 @@ Menu *createMenu()
 
   // Create elemnts main menu
   MenuElement *mainScreen = new MenuElement(onShowMain);
+  mainScreen->isUpdateble = true;
+
   MenuElement *settings = new MenuElement(onShowSettings);
   settings->subMenu = new Menu();
   MenuElement *phCalibration = new MenuElement(onShowPhCalibration);

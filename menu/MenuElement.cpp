@@ -35,4 +35,7 @@ void MenuElement::fillMenuElement(void (*onShowAction)(), void (*onHoldRightActi
     this->onHoldRight = onHoldRightAction;
     this->onHoldLeft = onHoldLeftAction;
     this->onClick = onClickAction;
+
+    this->isUpdateble = false;
+    this->lastScreenUpdate = millis();
 }
