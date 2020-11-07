@@ -12,10 +12,12 @@
 LiquidCrystal_I2C lcd(0x3F, SCREEN_WIDTH, 4);
 Encoder enc1(2, 3, 4, TYPE2);
 
+Pump pumpRaisePH(1);
+Pump pumpLowerPH(2);
+PHSensor pHSensor(A1);
+
 Menu *menu = NULL;
 Settings *settings = NULL;
-Pump *pumpRaisePH = NULL;
-Pump *pumpLowerPH = NULL;
 
 char *secondScreenStr = new char[SCREEN_WIDTH];
 char *thirdScreenStr = new char[SCREEN_WIDTH];
@@ -30,7 +32,7 @@ char *led[] = {
     "Off"
 };
 
-double currPH = DEFAULT_PH;
+float currPH = DEFAULT_PH;
 
 void setup()
 {
@@ -39,8 +41,6 @@ void setup()
   lcd.backlight();
 
   settings = new Settings(modes, led);
-  pumpLowerPH = new Pump(1);
-  pumpRaisePH = new Pump(2);
   menu = createMenu();
 }
 
@@ -74,4 +74,8 @@ void loop()
   }
 
   menu->callOnShowAction();
+
+  // Manage PH
+  currPH = pHSensor.read();
+  Serial.println(currPH);
 }
