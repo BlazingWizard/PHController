@@ -12,6 +12,7 @@
 #define SMALL_ADJUST_BOUND 0.5
 #define MILLI_IN_SECOND 1000
 
+// TODO Add settings file
 LiquidCrystal_I2C lcd(0x3F, SCREEN_WIDTH, 4);
 Encoder enc1(12, 11, 10, TYPE2);
 

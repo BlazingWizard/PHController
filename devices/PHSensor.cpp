@@ -45,3 +45,9 @@ float PHSensor::read()
     float phValue = -5.70 * pHVol + calibration;
     return phValue;
 }
+
+// TODO
+void PHSensor::calibrate(float standartPh){
+    Serial.println(standartPh);
+    return;
+}

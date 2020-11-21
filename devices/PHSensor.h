@@ -1,10 +1,13 @@
 class PHSensor
 {
 private:
-    const float calibration = 22.62; //change this value to calibrate
+    float calibration = 22.62;
     int pin;
 public:
     PHSensor(int pin);
 
     float read();
+
+    // Change calibration coefficient
+    void calibrate(float standartPh);
 };

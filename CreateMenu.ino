@@ -1,3 +1,7 @@
+#define PH4 4.01
+#define PH7 6.86
+#define PH10 10.0
+
 #pragma region MainMenu
 void onShowMain()
 {
@@ -33,6 +37,12 @@ void onShowTestPump()
 {
   lcd.clear();
   lcd.printstr("Test Pump");
+}
+
+void onShowExit()
+{
+  lcd.clear();
+  lcd.printstr("Exit");
 }
 #pragma endregion MainMenu
 
@@ -239,16 +249,31 @@ void onShowCalibratePh4()
   lcd.printstr("Calibrate Ph4");
 }
 
+void onClickCalibratePh4()
+{
+  pHSensor->calibrate(PH4);
+}
+
 void onShowCalibratePh7()
 {
   lcd.clear();
   lcd.printstr("Calibrate Ph7");
 }
 
+void onClickCalibratePh7()
+{
+  pHSensor->calibrate(PH7);
+}
+
 void onShowCalibratePh10()
 {
   lcd.clear();
   lcd.printstr("Calibrate Ph10");
+}
+
+void onClickCalibratePh10()
+{
+  pHSensor->calibrate(PH10);
 }
 #pragma endregion PhCalibrationSubmenu
 
@@ -259,10 +284,20 @@ void onShowPump1()
   lcd.printstr("Pump1");
 }
 
+void onClickTestPump1()
+{
+  pumpLowerPH->turnOn(settings->smallAdjust->getValue() * MILLI_IN_SECOND);
+}
+
 void onShowPump2()
 {
   lcd.clear();
   lcd.printstr("Pump2");
+}
+
+void onClickTestPump2()
+{
+  pumpRaisePH->turnOn(settings->smallAdjust->getValue() * MILLI_IN_SECOND);
 }
 #pragma endregion TestPumpSubmenu
 
@@ -295,14 +330,16 @@ Menu *createMenu()
 
   // Create phCalibration submenu
   Menu *phCalibrationSubmenu = phCalibration->subMenu;
-  phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh4));
-  phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh7));
-  phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh10));
+  phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh4, onClickCalibratePh4));
+  phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh7, onClickCalibratePh7));
+  phCalibrationSubmenu->add(new MenuElement(onShowCalibratePh10, onClickCalibratePh10));
+  phCalibrationSubmenu->add(new MenuElement(onShowExit));
 
   // Create testPump submenu
   Menu *testPumpSubmenu = testPump->subMenu;
-  testPumpSubmenu->add(new MenuElement(onShowPump1));
-  testPumpSubmenu->add(new MenuElement(onShowPump2));
+  testPumpSubmenu->add(new MenuElement(onShowPump1, onClickTestPump1));
+  testPumpSubmenu->add(new MenuElement(onShowPump2, onClickTestPump2));
+  testPumpSubmenu->add(new MenuElement(onShowExit));
 
   // Fill main menu
   mainMenu->add(mainScreen);
