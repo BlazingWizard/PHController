@@ -19,7 +19,8 @@ void Pump::turnOff()
 
 void Pump::turnOn(int duration)
 {
+    // TODO delete delay
     this->turnOn();
-    delay(duration * 1000);
+    delay(duration);
     this->turnOff();
 }
