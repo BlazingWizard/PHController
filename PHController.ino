@@ -14,7 +14,7 @@
 
 // TODO Add settings file
 LiquidCrystal_I2C lcd(0x3F, SCREEN_WIDTH, 4);
-Encoder enc1(12, 11, 10, TYPE2);
+Encoder encoder(12, 11, 10, TYPE2);
 
 Pump* pumpRaisePH = new Pump(1);
 Pump* pumpLowerPH = new Pump(2);
@@ -51,31 +51,31 @@ void setup()
 
 void loop()
 {
-  enc1.tick();
+  encoder.tick();
   pumpRaisePH->tick();
   pumpLowerPH->tick();
 
-  if (enc1.isRight())
+  if (encoder.isRight())
   {
     menu->next();
   }
 
-  if (enc1.isLeft())
+  if (encoder.isLeft())
   {
     menu->previos();
   }
 
-  if (enc1.isClick())
+  if (encoder.isClick())
   {
     menu->callOnClickAction();
   }
 
-  if (enc1.isRightH())
+  if (encoder.isRightH())
   {
     menu->callOnHoldRightAction();
   }
 
-  if (enc1.isLeftH())
+  if (encoder.isLeftH())
   {
     menu->callOnHoldLeftAction();
   }
