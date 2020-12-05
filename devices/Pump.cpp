@@ -19,8 +19,26 @@ void Pump::turnOff()
 
 void Pump::turnOn(int duration)
 {
-    // TODO delete delay
+    if(this->isWorking){
+      return;
+    }
+
     this->turnOn();
-    delay(duration);
-    this->turnOff();
+    this->isWorking = true;
+    this->workStartAt = millis();
+    this->workDuration = duration;
+}
+
+void Pump::tick(){
+    if (!this->isWorking){
+        return;
+    }
+
+    unsigned long currentMills = millis();
+    if (currentMills - this->workStartAt > this->workDuration){
+        this->turnOff();
+        this->isWorking = false;
+        this->workStartAt = 0;
+        this->workDuration = 0;
+    }
 }

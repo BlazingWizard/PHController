@@ -52,6 +52,8 @@ void setup()
 void loop()
 {
   enc1.tick();
+  pumpRaisePH->tick();
+  pumpLowerPH->tick();
 
   if (enc1.isRight())
   {
