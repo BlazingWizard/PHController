@@ -1,10 +1,10 @@
 class PHSensor
 {
 private:
-    float calibration = 22.62;
+    float calibration;
     int pin;
 public:
-    PHSensor(int pin);
+    PHSensor(int pin, float calibration);
 
     float read();
 

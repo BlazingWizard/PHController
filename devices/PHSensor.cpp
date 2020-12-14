@@ -1,9 +1,15 @@
 #include "PHSensor.h"
 #include <Arduino.h>
 
-PHSensor::PHSensor(int pin)
+#define DEFAULT_CALIBRATION_COEFF 22.62
+#define SENSOR_ACCURACY 0.1
+
+PHSensor::PHSensor(int pin, float calibration)
 {
     this->pin = pin;
+    
+    float calibrationCoeff = calibration != 0.0 ? calibration : DEFAULT_CALIBRATION_COEFF;
+    this->calibration = calibrationCoeff;
 }
 
 float PHSensor::read()
@@ -46,8 +52,11 @@ float PHSensor::read()
     return phValue;
 }
 
-// TODO
 void PHSensor::calibrate(float standartPh){
-    Serial.println(standartPh);
-    return;
+    float currPH = this->read();
+    float diff = standartPh - currPH;
+
+    if (abs(diff) > SENSOR_ACCURACY){
+        this->calibration += diff;
+    }
 }

@@ -16,9 +16,10 @@
 LiquidCrystal_I2C lcd(0x3F, SCREEN_WIDTH, 4);
 Encoder encoder(12, 11, 10, TYPE2);
 
+// TODO Add fill calibration from settings
 Pump* pumpRaisePH = new Pump(1);
 Pump* pumpLowerPH = new Pump(2);
-PHSensor* pHSensor = new PHSensor(A1);
+PHSensor* pHSensor = new PHSensor(A1, 0.0);
 
 Menu *menu = NULL;
 Settings *settings = NULL;
